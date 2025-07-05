@@ -1,0 +1,513 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 10% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+}
+
+/* Metallic Text Animation */
+.intro-text-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.metal-text {
+  font-family: "Courier New", "Monaco", "Menlo", "Consolas", monospace;
+  font-size: clamp(4rem, 12vw, 8rem);
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  background: linear-gradient(
+    45deg,
+    #0a0a0a 0%,
+    #2a2a2a 15%,
+    #4a4a4a 25%,
+    #ffffff 40%,
+    #ffffff 60%,
+    #4a4a4a 75%,
+    #2a2a2a 85%,
+    #0a0a0a 100%
+  );
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  animation: metallic-shine 3s ease-in-out infinite, text-glow 2s ease-in-out infinite alternate, slide-out 1s
+    ease-in-out 3.5s forwards;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.3), 0 0 30px rgba(255, 255, 255, 0.2);
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
+}
+
+.glow-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.9) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: lightning-sweep 2.5s ease-in-out infinite;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  border-radius: 8px;
+}
+
+/* Lightning Animation */
+.lightning-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.lightning-bolt {
+  position: absolute;
+  width: 3px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 255, 255, 0.9) 10%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(255, 255, 255, 0.9) 90%,
+    transparent 100%
+  );
+  opacity: 0;
+  animation: lightning-strike 4s ease-in-out infinite;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.9), 0 0 25px rgba(255, 255, 255, 0.7), 0 0 35px rgba(255, 255, 255, 0.5);
+  border-radius: 2px;
+}
+
+.lightning-1 {
+  left: 15%;
+  height: 70%;
+  top: 15%;
+  animation-delay: 0s;
+  transform: rotate(12deg);
+}
+
+.lightning-2 {
+  right: 20%;
+  height: 80%;
+  top: 10%;
+  animation-delay: 0.7s;
+  transform: rotate(-8deg);
+}
+
+.lightning-3 {
+  left: 65%;
+  height: 60%;
+  top: 25%;
+  animation-delay: 1.4s;
+  transform: rotate(6deg);
+}
+
+.lightning-4 {
+  left: 45%;
+  height: 90%;
+  top: 5%;
+  animation-delay: 2.1s;
+  transform: rotate(-3deg);
+}
+
+/* Keyframe Animations */
+@keyframes metallic-shine {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes text-glow {
+  0% {
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
+  }
+  100% {
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.6)) drop-shadow(0 0 30px rgba(255, 255, 255, 0.4))
+      drop-shadow(0 0 40px rgba(255, 255, 255, 0.3));
+  }
+}
+
+@keyframes lightning-sweep {
+  0%,
+  100% {
+    background-position: -200% 0;
+    opacity: 0;
+  }
+  30%,
+  70% {
+    background-position: 200% 0;
+    opacity: 0.8;
+  }
+}
+
+@keyframes lightning-strike {
+  0%,
+  85%,
+  100% {
+    opacity: 0;
+    transform: scaleY(0) rotate(var(--rotation, 0deg));
+  }
+  5%,
+  20% {
+    opacity: 1;
+    transform: scaleY(1) rotate(var(--rotation, 0deg));
+  }
+  10%,
+  15% {
+    opacity: 0.6;
+    transform: scaleY(0.9) rotate(var(--rotation, 0deg));
+  }
+}
+
+@keyframes slide-out {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100vw);
+    opacity: 0;
+  }
+}
+
+/* Enhanced animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.1;
+  }
+  25% {
+    transform: translateY(-20px) rotate(90deg);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-40px) rotate(180deg);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translateY(-20px) rotate(270deg);
+    opacity: 0.3;
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+  }
+}
+
+.animate-float {
+  animation: float linear infinite;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* Enhanced card hover effects */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-hover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.card-hover:hover::before {
+  left: 100%;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
+}
+
+/* Enhanced button effects */
+.btn-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-glow::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.btn-glow:hover::before {
+  left: 100%;
+}
+
+/* Text reveal animation */
+.text-reveal {
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.8) 50%, transparent 100%);
+  background-size: 200% 100%;
+  background-position: -100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: text-reveal 3s ease-in-out infinite;
+}
+
+@keyframes text-reveal {
+  0%,
+  100% {
+    background-position: -100% 0;
+  }
+  50% {
+    background-position: 100% 0;
+  }
+}
+
+/* Morphing shapes */
+.morph-shape {
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  animation: morph 8s ease-in-out infinite;
+}
+
+@keyframes morph {
+  0%,
+  100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  25% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+  }
+  50% {
+    border-radius: 50% 60% 30% 60% / 60% 40% 60% 40%;
+  }
+  75% {
+    border-radius: 60% 40% 60% 40% / 30% 60% 70% 40%;
+  }
+}
+
+/* Scroll animations */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scroll-animate.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-animate-slide-up {
+  opacity: 0;
+  transform: translateY(100px);
+  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scroll-animate-slide-left {
+  opacity: 0;
+  transform: translateX(-100px);
+  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scroll-animate-slide-right {
+  opacity: 0;
+  transform: translateX(100px);
+  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scroll-animate-scale {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scroll-animate.animate-in,
+.scroll-animate-slide-up.animate-in,
+.scroll-animate-slide-left.animate-in,
+.scroll-animate-slide-right.animate-in,
+.scroll-animate-scale.animate-in {
+  opacity: 1;
+  transform: translateY(0) translateX(0) scale(1);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #666;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+/* Additional metallic effects */
+.metal-text::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 25%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.1) 75%,
+    transparent 100%
+  );
+  animation: metallic-reflection 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes metallic-reflection {
+  0%,
+  100% {
+    transform: translateX(-100%) skewX(-15deg);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(100%) skewX(-15deg);
+    opacity: 1;
+  }
+}
+
+/* Enhanced lightning effects */
+.lightning-bolt::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  transform: translateX(-50%);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+}
+
+.lightning-bolt::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 5px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateX(-50%);
+  filter: blur(2px);
+}
+
+/* Spotlight animation */
+@keyframes spotlight {
+  0% {
+    opacity: 0;
+    transform: translate(-72%, -62%) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -40%) scale(1);
+  }
+}
+
+.animate-spotlight {
+  animation: spotlight 2s ease .75s 1 forwards;
+}
